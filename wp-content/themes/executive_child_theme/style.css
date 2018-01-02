@@ -6,3 +6,7 @@ Template:       executive
 
 (optional values you can add: Theme URI, Author URI, Version, License, License URI, Tags, Text Domain)
 */
+
+.site-description {
+    color: red;
+}
