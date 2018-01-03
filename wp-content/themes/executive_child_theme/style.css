@@ -10,3 +10,23 @@ Template:       executive
 .site-description {
     color: red;
 }
+
+.header-image img {
+    height: 350px;
+}
+
+.hentry {
+    border-bottom: 4px solid #C36E26;
+}
+
+.nav-menu {
+    font-size: 1.3em;
+}
+
+.nav-menu li a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    content: "Developed for CAD - Wordpress Assignment";
+}
