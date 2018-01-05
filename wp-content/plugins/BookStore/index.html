@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<div class="wrapper" ng-app="myApp" ng-controller="myCtrl">
+    <div class="formWrapper" ng-show="showForm">
+        <div class="adminLoginBtn">
+            <span ng-click="viewAdimForm()">I am Admin <i class="fa fa-sign-in"  ></i> </span>
+        </div>
+        <form method="POST">
+            <label>Mobile No.:</label><input class="box" size="10" type="number" ng-model="inquiry.MobileNumber" ng-blur="checkMobile()" /><br/>
+            <label>Book Name:</label><input class="box" size="10" type="text" ng-model="inquiry.BookName" /><br/>
+            <label>Auther Name:</label><input type="text" class="box" size="10" ng-model="inquiry.AutherName" /><br/>
+            <label>Requested date:</label><input type="date" ng-model="inquiry.Date" /><br/><br/>
+            <label>Message:</label> <textarea name="" id="" class="inquiryFormMessage" ng-model="inquiry.message" cols="10" rows="5"></textarea><br/><br/>
+
+            <button class="btnblue" ng-click="submit()">Submit</button>
+
+            <button ng-click="history()" ng-class="{btnblue: enableShowPast, disable: !enableShowPast}"> View Past History </button>
+        </form>
+    </div>
+    <!-- for customer side  -->
+    <div ng-show="showPastRecords">
+        <button class="btnblue" ng-click="showFormAgain()">Back</button>
+        <div class="pastRecords">
+            <table border="1">
+                <tr>
+                    <td>Sr.no </td>
+                    <td>Book Name </td>
+                    <td>Auther Name</td>
+                    <td>Request Date</td>
+                    <td>Message</td>
+                </tr>
+                <tr ng-if="noRecordsFound">
+                    <td colspan="5" align="center">No Records Found associated with Mobile Number : {{inquiry.MobileNumber}} </td>
+                </tr>
+
+                <tr style="column-count:5" class="record" ng-repeat="record in pastrecords">
+                    <td>{{$index+1}} </td>
+                    <td>{{record.bookname}} </td>
+                    <td>{{record.authername}}</td>
+                    <td>{{record.requesteddate }}</td>
+                    <td>{{record.message}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- admin login -->
+    <div class="formWrapper" ng-show="showAdminForm">
+        <div class="adminLoginBtn">
+            <span ng-click="viewInquiryForm()">I am Not Admin <i class="fa fa-sign-out"  ></i> </span>
+        </div>
+        <form method="POST">
+            <label><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" ng-model="uname" required>
+
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" ng-model="psw" required>
+            <input type="submit" ng-click="login()" value="Login" class="btnblue" style="margin-top:5px">
+        </form>
+    </div>
+
+    <!-- admin records display -->
+    <div ng-show=" showAdminRecords ">
+        <button class="btnblue " ng-click="showAdminFormAgain() "> <i class="fa fa-sign-out "></i> Logout</button>
+        <div class="pastRecords ">
+            <table border="1 " class="recordTable ">
+                <tr>
+                    <td>Sr.no </td>
+                    <td>Mobile Number </td>
+                    <td>Book Name </td>
+                    <td>Auther Name</td>
+                    <td>Request Date</td>
+                    <td>Message</td>
+                </tr>
+                <tr ng-if="noRecordsFound ">
+                    <td colspan="5 " align="center ">No Records Found associated with Mobile Number : {{inquiry.MobileNumber}} </td>
+                </tr>
+
+                <tr style="column-count:5 " class="record " ng-repeat="record in adminRecords ">
+                    <td>{{$index+1}} </td>
+                    <td>{{record.mobile}} </td>
+                    <td>{{record.bookname}} </td>
+                    <td>{{record.authername}}</td>
+                    <td>{{record.requesteddate }}</td>
+                    <td>{{record.message}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>

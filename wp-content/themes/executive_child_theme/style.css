@@ -30,3 +30,39 @@ Template:       executive
 .copyright {
     content: "Developed for CAD - Wordpress Assignment";
 }
+
+
+/* plugin css customer side */
+
+.inquiryFormMessage {
+    width: 30%;
+}
+
+.enable {
+    background-color: #50ddba !important;
+}
+
+.disable {
+    background-color: #717977 !important;
+}
+
+.btnblue {
+    background-color: #50ddba !important;
+}
+
+.box {
+    width: 20% !important;
+}
+
+.adminLoginBtn {
+    float: right;
+    cursor: pointer;
+}
+
+.adminLoginBtn .fa {
+    color: grey;
+}
+
+.recordTable {
+    margin-top: 10px;
+}
