@@ -44,6 +44,7 @@ Template:       executive
 
 .disable {
     background-color: #717977 !important;
+    cursor: not-allowed;
 }
 
 .btnblue {

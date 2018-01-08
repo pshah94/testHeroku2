@@ -36,6 +36,6 @@ include_once "backend.php";
 register_activation_hook( __FILE__, function(){
     global $wpdb, $table_prefix;
     $wpdb->show_errors();
-    $stmt = "CREATE TABLE inquiry ('id' INTEGER PRIMARY KEY AUTOINCREMENT , 'mobile' TEXT , 'bookname' TEXT, 'authername' TEXT, 'requesteddate' DATE, 'message' TEXT)";
+    $stmt = "CREATE TABLE inquiry ('id' INTEGER PRIMARY KEY AUTOINCREMENT , 'mobile' TEXT , 'bookname' TEXT, 'authername' TEXT, 'requesteddate' DATE, 'message' TEXT,'response' TEXT DEFAULT NULL)";
     $wpdb->query($stmt);
 } );

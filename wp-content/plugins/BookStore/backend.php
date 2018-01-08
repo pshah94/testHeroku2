@@ -51,21 +51,34 @@ add_action('init', function () {
             $data['MobileNumber'],$data['BookName'],$data['AutherName'],$data['Date'],$data[message]);
             $wpdb->query($stmt);
             $res= array();
-            $res[0] = "success";
+            $res[0] = "Your inquiry has been placed. Thank You!!!";
             echo (json_encode($res));
             });
+
+
         $slim->post("/slim/api/bookstore_getInquiry",function(){
                 $postdata = file_get_contents("php://input");
                 $data = json_decode($postdata,true);
                 global $wpdb;
                 if($postdata == "0" || $postdata == 0){
-                    $obje = $wpdb->get_results("SELECT id,mobile,bookname,authername,requesteddate,message from inquiry",OBJECT);    
+                    $obje = $wpdb->get_results("SELECT id,mobile,bookname,authername,requesteddate,message,response from inquiry",OBJECT);    
                 }else{
-                    $obje = $wpdb->get_results("SELECT id,mobile,bookname,authername,requesteddate,message from inquiry where mobile =".$postdata,OBJECT);
+                    $obje = $wpdb->get_results("SELECT id,mobile,bookname,authername,requesteddate,message,response from inquiry where mobile =".$postdata,OBJECT);
                 }
                 print_r(json_encode($obje));
         });
         
+        $slim->post("/slim/api/bookstore_inquiryResponse",function(){
+            $postdata = file_get_contents("php://input");
+            $data = json_decode($postdata,true);
+            global $wpdb;
+            $stmt = $wpdb->prepare("update inquiry set response = %s where id = %s",
+            $data['response'],$data['id']);
+            $wpdb->query($stmt);
+            $res= array();
+            $res[0] = "Responded Successfully!!!";
+            echo (json_encode($res));
+            });
         $slim->run();
         exit;
     }

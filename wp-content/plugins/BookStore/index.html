@@ -5,7 +5,9 @@
             <span ng-click="viewAdimForm()">I am Admin <i class="fa fa-sign-in"  ></i> </span>
         </div>
         <form method="POST">
-            <label>Mobile No.:</label><input class="box" size="10" type="number" ng-model="inquiry.MobileNumber" ng-blur="checkMobile()" /><br/>
+            <label>Mobile No.:</label><input class="box" size="10" placeholder="10 digits only" type="number" ng-model="inquiry.MobileNumber" ng-blur="checkMobile()" />
+            <button ng-click="history()" ng-class="{btnblue: enableShowPast, disable: !enableShowPast}"> View Past History </button>
+            <br/>
             <label>Book Name:</label><input class="box" size="10" type="text" ng-model="inquiry.BookName" /><br/>
             <label>Auther Name:</label><input type="text" class="box" size="10" ng-model="inquiry.AutherName" /><br/>
             <label>Requested date:</label><input type="date" ng-model="inquiry.Date" /><br/><br/>
@@ -13,7 +15,7 @@
 
             <button class="btnblue" ng-click="submit()">Submit</button>
 
-            <button ng-click="history()" ng-class="{btnblue: enableShowPast, disable: !enableShowPast}"> View Past History </button>
+
         </form>
     </div>
     <!-- for customer side  -->
@@ -27,17 +29,20 @@
                     <td>Auther Name</td>
                     <td>Request Date</td>
                     <td>Message</td>
+                    <td>Response</td>
+
                 </tr>
                 <tr ng-if="noRecordsFound">
-                    <td colspan="5" align="center">No Records Found associated with Mobile Number : {{inquiry.MobileNumber}} </td>
+                    <td colspan="6" align="center">No Records Found associated with Mobile Number : {{inquiry.MobileNumber}} </td>
                 </tr>
 
                 <tr style="column-count:5" class="record" ng-repeat="record in pastrecords">
                     <td>{{$index+1}} </td>
                     <td>{{record.bookname}} </td>
                     <td>{{record.authername}}</td>
-                    <td>{{record.requesteddate }}</td>
+                    <td>{{record.formatedDate | date }}</td>
                     <td>{{record.message}}</td>
+                    <td>{{record.response}}</td>
                 </tr>
             </table>
         </div>
@@ -70,9 +75,11 @@
                     <td>Auther Name</td>
                     <td>Request Date</td>
                     <td>Message</td>
+                    <td>Response</td>
+                    <td>Action</td>
                 </tr>
                 <tr ng-if="noRecordsFound ">
-                    <td colspan="5 " align="center ">No Records Found associated with Mobile Number : {{inquiry.MobileNumber}} </td>
+                    <td colspan="6 " align="center ">No Records Found associated with Mobile Number : {{inquiry.MobileNumber}} </td>
                 </tr>
 
                 <tr style="column-count:5 " class="record " ng-repeat="record in adminRecords ">
@@ -80,8 +87,18 @@
                     <td>{{record.mobile}} </td>
                     <td>{{record.bookname}} </td>
                     <td>{{record.authername}}</td>
-                    <td>{{record.requesteddate }}</td>
+                    <td>{{record.formatedDate | date }}</td>
                     <td>{{record.message}}</td>
+                    <td ng-if="record.allowResponse">
+                        <textarea name="" id="" ng-model="record.response" cols="20" rows="2"></textarea>
+                    </td>
+                    <td ng-if="!record.allowResponse">
+                        {{record.response}}
+                    </td>
+                    <td>
+                        <button ng-click="sendResponse(record.id)" ng-class="{btnblue: record.allowResponse, disable: !record.allowResponse}"> Send </button>
+                    </td>
+
                 </tr>
             </table>
         </div>
